@@ -9,14 +9,15 @@ filetype off
 
 " TODO: Load plugins here (pathogen or vundle)
 " Install plug:
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
+"if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+"  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+"    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+"  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+"endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-commentary'
 Plug 'vim-python/python-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
@@ -30,11 +31,12 @@ set background=dark
 set termguicolors
 colorscheme material-monokai
 ""let g:airline_theme = 'materialmonokai'
+let g:fzf_preview_window = []
 let g:materialmonokai_italic=1 " For comments
 let g:materialmonokai_subtle_spell=1
 let g:materialmonokai_custom_lint_indicators=0
 " Coc server extensions
-let g:coc_global_extensions = [ 'coc-tsserver' , 'coc-json' , 'coc-css' , 'coc-python' , 'coc-highlight' , 'coc-prettier' , 'coc-html' , 'coc-java' , 'coc-angular' ]
+let g:coc_global_extensions = [ 'coc-tsserver' , 'coc-json' , 'coc-css' , 'coc-python' , 'coc-highlight' , 'coc-prettier' , 'coc-html' , 'coc-java' , 'coc-angular' , 'coc-xml' ]
 let g:airline_powerline_fonts = 1
 
 " Turn on syntax highlighting
@@ -62,9 +64,9 @@ set encoding=utf-8
 set wrap
 set textwidth=79
 set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set noshiftround
 set noerrorbells
@@ -110,7 +112,8 @@ noremap <leader>gs :CocSearch <space>
 noremap <leader>fs :Files<cr>
 noremap <leader>fg :GFiles<cr>
 noremap <leader><Esc> :te<cr>
-tnoremap <Esc> <C-\><C-n>
+" tnoremap <Esc> <C-\><C-n>
+tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
 " Coc Config
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -126,11 +129,7 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 " Use <c-space> to trigger completion.
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
+inoremap <silent><expr> <C-space> coc#refresh()
 " Make <CR> auto-select the first completion item and notify coc.nvim to
 " format on enter, <cr> could be remapped by other vim plugin
 inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
@@ -153,11 +152,12 @@ nmap <silent> gr <Plug>(coc-references)
 " Symbol renaming.
 nmap <leader>rn <Plug>(coc-rename)
 " Formatting selected code.
-xmap <leader>f  <Plug>(coc-format)
-nmap <leader>f  <Plug>(coc-format)
-inoremap {  {}<ESC>hli
-inoremap (  ()<ESC>hli
-inoremap "  ""<ESC>hli
-inoremap '  ''<ESC>hli
-inoremap `  ``<ESC>hli
-imap jj <Esc>
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+" inoremap {  {}<ESC>hli
+" inoremap (  ()<ESC>hli
+" inoremap "  ""<ESC>hli
+" inoremap '  ''<ESC>hli
+" inoremap `  ``<ESC>hli
+imap ii <Esc>
+map <leader>jgs mawv/ <CR>"ty/ <CR>wvwh"ny/getters<CR>$a<CR><CR><Esc>xxapublic <Esc>"tpa<Esc>"npbiget<Esc>l~ea() {<CR><Tab>return<Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxapublic void<Esc>"npbiset<Esc>l~ea(<Esc>"tpa <Esc>"npa) {<CR><Tab>this.<Esc>"npa=<Esc>"npa;<CR>}<Esc>=<CR>`ak
