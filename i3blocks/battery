@@ -1,0 +1,88 @@
+#!/usr/bin/perl
+#
+# Copyright 2014 Pierre Mavro <deimos@deimos.fr>
+# Copyright 2014 Vivien Didelot <vivien@didelot.org>
+#
+# Licensed under the terms of the GNU GPL v3, or any later version.
+#
+# This script is meant to use with i3blocks. It parses the output of the "acpi"
+# command (often provided by a package of the same name) to read the status of
+# the battery, and eventually its remaining time (to full charge or discharge).
+#
+# The color will gradually change for a percentage below 85%, and the urgency
+# (exit code 33) is set if there is less that 5% remaining.
+
+use strict;
+use warnings;
+use utf8;
+use Glib::Object::Introspection;
+Glib::Object::Introspection->setup(basename => 'Notify',
+                                   version => '0.7',
+                                   package => 'Notify');
+use open ':std', ':encoding(UTF-8)';
+
+my $acpi;
+my $status;
+my $percent;
+my $icon = "";
+my $full_text;
+my $short_text;
+my $text_color = "#D3D7CF\n";
+my $bat_number = $ENV{BLOCK_INSTANCE} || 0;
+
+# read the first line of the "acpi" command output
+open (ACPI, "acpi -b | grep 'Battery $bat_number' |") or die;
+$acpi = <ACPI>;
+close(ACPI);
+
+# fail on unexpected output
+if ($acpi !~ /: (\w+), (\d+)%/) {
+	die "$acpi\n";
+}
+
+$status = $1;
+$percent = $2;
+$full_text = "$percent%";
+
+if ($status eq 'Charging') {
+	$icon = '';
+}
+
+$short_text = $full_text;
+
+if ($acpi =~ /(\d\d:\d\d):/) {
+	$full_text .= " $1";
+}
+
+# consider color and urgent flag only on discharge
+if ($status eq 'Discharging') {
+
+	if ($percent < 10) {
+		Notify->init;
+		my $low_battery_notification = Notify::Notification->new('Low battery !!',
+									 "$percent of battery remaining",
+									 'battery-caution');
+		$low_battery_notification->show;
+		$icon = "";
+		$text_color = "#FF0000\n";
+	} elsif ($percent < 25) {
+		$icon = "";
+		$text_color = "#FFAE00\n";
+	} elsif ($percent < 50) {
+		$icon = "";
+		$text_color = "#FFF600\n";
+	} elsif ($percent < 75) {
+		$icon = "";
+		$text_color = "#A8FF00\n";
+	}
+
+	if ($percent < 5) {
+		exit(33);
+	}
+}
+
+# print text
+print "$icon $full_text\n";
+print "$icon $short_text\n";
+print "$text_color";
+exit(0);

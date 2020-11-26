@@ -1,0 +1,93 @@
+# i3blocks config file
+#
+# Please see man i3blocks for a complete reference!
+# The man page is also hosted at http://vivien.github.io/i3blocks
+#
+# List of valid properties:
+#
+# align
+# color
+# command
+# full_text
+# instance
+# interval
+# label
+# min_width
+# name
+# separator
+# separator_block_width
+# short_text
+# signal
+# urgent
+
+# Global properties
+#
+# The top properties below are applied to every block, but can be overridden.
+# Each block command defaults to the script name to avoid boilerplate.
+command=/usr/share/i3blocks/$BLOCK_NAME
+
+# Click example
+# [click]
+# full_text=Click me!
+# command=echo "Got clicked with button $button"
+# color=#F79494
+
+# Guess the weather hourly
+# [weather]
+# command=curl -Ss 'https://wttr.in?0&T&Q' | cut -c 16- | head -2 | xargs echo
+# interval=3600
+# color=#A4C2F4
+
+# Query my default IP address only on startup
+# [ip]
+# command=hostname -i | awk '{ print "IP:" $1 }'
+# interval=once
+# color=#91E78B
+
+[wifi]
+command=/home/pablo/.config/i3blocks/wifi
+instance=wlp2s0
+interval=5
+
+[iface]
+command=/home/pablo/.config/i3blocks/iface
+color=#00FF00
+interval=5
+
+# Battery level
+[battery]
+command=/home/pablo/.config/i3blocks/battery
+interval=5
+
+[temperature]
+command=/usr/share/i3blocks/temperature --chip coretemp-isa-0000
+label= 
+interval=5
+
+# System load
+[load]
+label= 
+command=awk '{print $1 ; exit}' /proc/loadavg
+interval=5
+
+[memory]
+label=
+instance=available_total
+command=/home/pablo/.config/i3blocks/memory
+interval=5
+
+[volume]
+command=/home/pablo/.config/i3blocks/volume 5% pulse
+interval=once
+signal=10
+
+[brightnessctl]
+command=brightnessctl| awk -F"[()]" '/Current brightness:/ {print $2 ; exit}'
+label=
+interval=once
+signal=11
+
+# Update time every 5 seconds
+[time]
+command=printf " %s " "$(date +"%d-%m-%Y %H:%M")"
+interval=5
