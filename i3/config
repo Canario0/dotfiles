@@ -197,7 +197,7 @@ bindsym Print exec gnome-screenshot -i
 exec --no-startup-id picom --config /home/pablo/.config/picom/picom.conf
 
 # Selecting display conf
-# exec --no-startup-id autorandr -c
+exec_always --no-startup-id autorandr -c
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
