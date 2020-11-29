@@ -24,7 +24,7 @@
 #
 # The top properties below are applied to every block, but can be overridden.
 # Each block command defaults to the script name to avoid boilerplate.
-command=/usr/share/i3blocks/$BLOCK_NAME
+command=/home/pablo/.config/i3blocks/scripts/$BLOCK_NAME/$BLOCK_NAME
 
 # Click example
 # [click]
@@ -60,7 +60,8 @@ command=/home/pablo/.config/i3blocks/battery
 interval=5
 
 [temperature]
-command=/usr/share/i3blocks/temperature --chip coretemp-isa-0000
+# command=temperature --chip coretemp-isa-0000
+SENSOR_CHIP=coretemp-isa-0000
 label= 
 interval=5
 
@@ -68,10 +69,10 @@ interval=5
 [load]
 label= 
 command=awk '{print $1 ; exit}' /proc/loadavg
-interval=5
+interval=5
 
 [memory]
-label=
+label= 
 instance=available_total
 command=/home/pablo/.config/i3blocks/memory
 interval=5
@@ -83,11 +84,21 @@ signal=10
 
 [brightnessctl]
 command=brightnessctl| awk -F"[()]" '/Current brightness:/ {print $2 ; exit}'
-label=
+label= 
 interval=once
 signal=11
 
 # Update time every 5 seconds
-[time]
-command=printf " %s " "$(date +"%d-%m-%Y %H:%M")"
+[custom_time]
+command=printf " %s\n" "$(date +"%d-%m-%Y %H:%M")"
 interval=5
+
+# Shutdown menu
+[shutdown_menu]
+full_text=  
+ROFI_TEXT=Menu
+# ROFI_OPTIONS=-width 11 -location 3 -hide-scrollbar -bw 2
+ROFI_OPTIONS=-no-config -width 11 -location 3 -yoffset 29 -width 5 -xoffset 5 -bw 0 -border 0 -theme ~/.config/rofi/config.rasi
+ENABLE_CONFIRMATIONS=true
+LAUNCHER=rofi
+LOCKSCRIPT=i3lock --color=${BG_COLOR#"#"}

@@ -239,3 +239,5 @@ for_window [class="Spotify"] move container to workspace $ws10
 
 # Problem with apps asking for root permissions
 exec --no-startup-id /usr/lib/policykit-1-gnome/polkit-gnome-authentication-agent-1 &
+# Testing
+exec --no-startup-id xfce4-power-manager
