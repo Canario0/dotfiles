@@ -101,4 +101,3 @@ ROFI_TEXT=Menu
 ROFI_OPTIONS=-no-config -width 11 -location 3 -yoffset 29 -width 5 -xoffset 5 -bw 0 -border 0 -theme ~/.config/rofi/config.rasi
 ENABLE_CONFIRMATIONS=true
 LAUNCHER=rofi
-LOCKSCRIPT=i3lock --color=${BG_COLOR#"#"}

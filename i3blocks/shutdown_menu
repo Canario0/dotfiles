@@ -119,7 +119,7 @@ menu=(
   [Hibernate]="systemctl hibernate"
   [Suspend]="systemctl suspend"
   [Halt]="systemctl halt"
-  [Lock]="${LOCKSCRIPT:-i3lock --color=${BG_COLOR#"#"}}"
+  [Lock]="${LOCKSCRIPT:-i3lock -t -e -i /home/pablo/.config/wallpapers/lock-wallpaper.png }"
   [Logout]="i3-msg exit"
   [Cancel]=""
 )
