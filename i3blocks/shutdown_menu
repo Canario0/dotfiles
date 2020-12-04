@@ -50,7 +50,7 @@ ZENITY_OPTIONS=(${ZENITY_OPTIONS:---column= --hide-header})
 #######################################################################
 
 # Whether to ask for user's confirmation
-enable_confirmation=${ENABLE_CONFIRMATIONS:-false}
+enable_confirmation=${ENABLE_CONFIRMATIONS:-true}
 
 # Preferred launcher if both are available
 preferred_launcher="${LAUNCHER:-rofi}"
