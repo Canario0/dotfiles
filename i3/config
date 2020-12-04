@@ -49,7 +49,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 # for i3blocks
 set $refresh_i3blocks_brightness pkill -SIGRTMIN+11 i3blocks
 bindsym XF86MonBrightnessUp exec --no-startup-id brightnessctl s +5% && $refresh_i3blocks_brightness # increase screen brightness
-bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%- && $refresh_i3blocks_brgihtness # decrease screen brightness
+bindsym XF86MonBrightnessDown exec --no-startup-id brightnessctl s 5%- && $refresh_i3blocks_brightness # decrease screen brightness
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
