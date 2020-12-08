@@ -110,3 +110,5 @@ alias pyenv="PIPENV_VENV_IN_PROJECT=true pipenv install"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source /etc/zsh_command_not_found
+export DENO_INSTALL="/home/pablo/.deno"
+export PATH="$DENO_INSTALL/bin:$PATH"
