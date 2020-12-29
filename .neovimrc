@@ -120,6 +120,7 @@ vnoremap <F1> :set invfullscreen<CR>
 noremap <leader>gs :CocSearch <space>
 noremap <leader>fs :Files<cr>
 noremap <leader>fg :GFiles<cr>
+noremap <leader>a :CocAction<cr>
 noremap <leader><Esc> :te<cr>
 " tnoremap <Esc> <C-\><C-n>
 tnoremap <expr> <Esc> (&filetype == "fzf") ? "<Esc>" : "<c-\><c-n>"
