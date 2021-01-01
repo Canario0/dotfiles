@@ -26,7 +26,6 @@ call plug#end()
 " colorscheme codedark
 let g:airline_theme = 'codedark'
 set background=dark
-set termguicolors
 colorscheme material-monokai
 ""let g:airline_theme = 'materialmonokai'
 let g:materialmonokai_italic=1 " For comments
