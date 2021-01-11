@@ -1,0 +1,40 @@
+set number
+set rnu
+let mapleader = " "
+set modelines=0
+set encoding=utf-8
+set nowrap
+set noerrorbells
+set scrolloff=5
+set backspace=indent,eol,start
+set matchpairs+=<:> " use % to jump between pairs
+nnoremap j gj
+nnoremap k gk
+" Allow hidden buffers
+set hidden
+" Rendering
+set ttyfast
+set showmode
+set showcmd
+set nohlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+noremap <leader>gs :action FindInPath<cr>
+noremap <leader>fs :action GotoFile<cr>
+noremap <leader>fg :action SearchEverywhere<cr>
+noremap <leader>a :action Refactorings.QuickListPopupAction<cr>
+noremap <leader><Esc> :sh<cr>
+nmap <leader>gd :action GotoDeclaration<cr>
+nmap <leader>gy :action GotoTypeDeclaration<cr>
+nmap <leader>gi :action GotoImplementation<cr>
+nmap <leader>gr :action FindUsages<cr>
+nmap <leader>rn :action RenameElement<cr>
+xmap <leader>f  :action ReformatCode
+nmap <leader>f  :action ReformatCode
+xmap <leader>fa :action ShowReformatFileDialog<cr>
+nmap <leader>fa :action ShowReformatFileDialog<cr>
+xmap <leader>gc :action CommentByLineComment<cr>
+nmap <leader>gc :action CommentByLineComment<cr>
+imap ii <Esc>
