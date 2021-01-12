@@ -31,8 +31,8 @@ nmap <leader>gy :action GotoTypeDeclaration<cr>
 nmap <leader>gi :action GotoImplementation<cr>
 nmap <leader>gr :action FindUsages<cr>
 nmap <leader>rn :action RenameElement<cr>
-xmap <leader>f  :action ReformatCode
-nmap <leader>f  :action ReformatCode
+" vmap <leader>f :action ReformatCode<cr>
+" nmap <leader>f :action ReformatCode<cr>
 xmap <leader>fa :action ShowReformatFileDialog<cr>
 nmap <leader>fa :action ShowReformatFileDialog<cr>
 xmap <leader>gc :action CommentByLineComment<cr>
