@@ -1,0 +1,99 @@
+#!/usr/bin/python3
+# commit_msg hook v2
+# git hook that appends the ticket code to every commit
+# to install copy the file to .git/hooks/commit-msg
+# author Pablo Renero Balgañón
+from sys import argv
+import io
+import re
+import subprocess
+
+TAG_REGEX = r"^\[((?:t|#)\d+)\]"
+BRANCH_REGEX = r"^.*?((?:t|#)\d+).*?$"
+
+
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+
+def log_error(message):
+    print(f"{bcolors.FAIL}{bcolors.BOLD}ERROR{bcolors.ENDC}: " +
+          f"{message} ❌\n")
+
+
+def log_warning(message):
+    print(f"{bcolors.WARNING}{bcolors.BOLD}WARNING{bcolors.ENDC}: " +
+          f"{message} ⚠️\n")
+
+
+def log_success(message):
+    print(f"{bcolors.OKGREEN}{bcolors.BOLD}SUCCESS{bcolors.ENDC}: " +
+          f"{message} 🥳\n")
+
+
+def read_file(file_path):
+    with io.open(file_path, mode="r", encoding="utf-8") as f:
+        return f.read()
+
+
+def write_file(file_path, message):
+    with io.open(file_path, mode="w", encoding="utf-8") as f:
+        f.write(message)
+
+
+def get_branch_name():
+    command_result = subprocess.run(
+        ["git", "branch", "--show-current"], encoding="utf-8", capture_output=True)
+    if command_result.returncode != 0:
+        log_error("error while retrieving the branch name")
+        exit(-1)
+    return command_result.stdout.rstrip()
+
+
+if __name__ == "__main__":
+    # Argv validation
+    if not len(argv) == 2:
+        log_error("missing file path argument")
+        exit(-1)
+    print("\n--- Commit message hook ---\n")
+
+    # Branch name retrieving
+    branch_name = get_branch_name()
+    ticket_code_match = re.match(BRANCH_REGEX, branch_name)
+    if not ticket_code_match:
+        log_success(f"{branch_name} is not a feature branch. Skipping...")
+        exit(0)
+
+    # Checking if commit message has the ticket code
+    ticket_code = ticket_code_match.group(1)
+    commit_message = ""
+    try:
+        commit_message = read_file(argv[1])
+    except:
+        log_error("unable to read commit message")
+        exit(-1)
+    commit_ticket_match = re.match(TAG_REGEX, commit_message)
+    if commit_ticket_match:
+        if ticket_code != commit_ticket_match.group(1):
+            log_warning(
+                "the ticket code in the commit message differs from the branch one")
+        else:
+            log_success(
+                "the ticket code is already in the commit message")
+        exit(0)
+
+    # Writing ticket code in the message
+    commit_message = f"[{ticket_code}] " + commit_message
+    try:
+        write_file(argv[1], commit_message)
+        log_success("added ticket code")
+    except:
+        log_error("unable to write commit message")
+        exit(-1)

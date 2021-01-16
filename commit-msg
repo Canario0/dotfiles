@@ -1,0 +1,12 @@
+#!/bin/sh
+# git hook that appends the ticket code to every commit
+# to install copy the file to .git/hooks
+# if the file name is commit-msg appends the tag after the commit
+# if the file name is prepare-commit-msg appends the tag before the commit
+# author Pablo Renero Balgañón
+branch_name=`git branch --show-current | awk '/[t#][0-9]+/ {split($0,cols,"."); last = length(cols); print cols[last]}'`
+TEMP=`mktemp /tmp/git-XXXXX`
+if [ "$branch_name" ];then
+    { echo -n "[${branch_name}] " && cat "$1"; } > "$TEMP"
+    mv "$TEMP" "$1"
+fi
