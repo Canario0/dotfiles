@@ -9,7 +9,7 @@ import re
 import subprocess
 
 TAG_REGEX = r"^\[((?:t|#)\d+)\]"
-BRANCH_REGEX = r"^.*?((?:t|#)\d+).*?$"
+BRANCH_REGEX = r"^.*?((?:t|bt#)\d+).*?$"
 
 
 class bcolors:
