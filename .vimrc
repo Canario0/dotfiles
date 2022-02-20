@@ -16,6 +16,7 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-commentary'
 Plug 'vim-python/python-syntax'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'vim-airline/vim-airline'
@@ -32,7 +33,7 @@ let g:materialmonokai_italic=1 " For comments
 let g:materialmonokai_subtle_spell=1
 let g:materialmonokai_custom_lint_indicators=0
 " Coc server extensions
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-deno' , 'coc-json' , 'coc-css' , 'coc-python' , 'coc-highlight' , 'coc-prettier' , 'coc-html' , 'coc-java' , 'coc-angular' , 'coc-xml' ]
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-deno' , 'coc-json' , 'coc-css' , 'coc-python' , 'coc-highlight' , 'coc-prettier' , 'coc-html' , 'coc-java' , 'coc-angular' , 'coc-xml', 'coc-go' ]
 let g:airline_powerline_fonts = 1
 
 " Turn on syntax highlighting
@@ -60,9 +61,9 @@ set encoding=utf-8
 set wrap
 " set textwidth=79
 set formatoptions=tcqrn1
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 set noshiftround
 set noerrorbells
@@ -108,6 +109,7 @@ noremap <leader>gs :CocSearch <space>
 noremap <leader>fs :Files<cr>
 noremap <leader>fg :GFiles<cr>
 noremap <leader><Esc> :sh<cr>
+
 " Coc Config
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -159,3 +161,18 @@ nmap <leader>f  <Plug>(coc-format-selected)
 " inoremap `  ``<ESC>hl
 imap ii <Esc>
 map <leader>jgs mawv/ <CR>"ty/ <CR>wvwh"ny/getters<CR>$a<CR><CR><Esc>xxapublic <Esc>"tpa<Esc>"npbiget<Esc>l~ea() {<CR><Tab>return<Esc>"npa;<CR>}<Esc>=<CR><Esc>/setters<CR>$a<CR><CR><Esc>xxapublic void<Esc>"npbiset<Esc>l~ea(<Esc>"tpa <Esc>"npa) {<CR><Tab>this.<Esc>"npa=<Esc>"npa;<CR>}<Esc>=<CR>`ak
+function! ClipboardYank()
+  call system('xclip -i -selection clipboard', @@)
+endfunction
+function! ClipboardPaste()
+  let @@ = system('xclip -o -selection clipboard')
+endfunction
+
+vnoremap <leader>y y:call ClipboardYank()<cr>
+vnoremap <leader>d d:call ClipboardYank()<cr>
+nnoremap <leader>p :call ClipboardPaste()<cr>p
+
+" For vim
+" hi MatchParen cterm=underline ctermbg=none ctermfg=none " use it to remove color of matching elements
+" For nvim
+hi MatchParen cterm=underline ctermbg=none ctermfg=none guifg=none guibg=none gui=underline

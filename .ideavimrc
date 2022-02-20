@@ -26,6 +26,7 @@ noremap <leader>fs :action GotoFile<cr>
 noremap <leader>fg :action SearchEverywhere<cr>
 noremap <leader>a :action Refactorings.QuickListPopupAction<cr>
 noremap <leader><Esc> :sh<cr>
+nmap / :action Find<cr>
 nmap <leader>gd :action GotoDeclaration<cr>
 nmap <leader>gy :action GotoTypeDeclaration<cr>
 nmap <leader>gi :action GotoImplementation<cr>
@@ -37,4 +38,5 @@ xmap <leader>fa :action ShowReformatFileDialog<cr>
 nmap <leader>fa :action ShowReformatFileDialog<cr>
 xmap <leader>gc :action CommentByLineComment<cr>
 nmap <leader>gc :action CommentByLineComment<cr>
+nmap <leader>k :action OnlineDocAction<cr>
 imap ii <Esc>

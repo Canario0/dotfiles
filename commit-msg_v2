@@ -8,8 +8,8 @@ import io
 import re
 import subprocess
 
-TAG_REGEX = r"^\[((?:t|#)\d+)\]"
-BRANCH_REGEX = r"^.*?((?:t|bt#)\d+).*?$"
+TAG_REGEX = r"^\[((?:t|[bB][Tt]#)\d+)\]"
+BRANCH_REGEX = r"^.*?((?:t|[bB][Tt]#)\d+).*?$"
 
 
 class bcolors:
