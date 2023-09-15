@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/pablo/.oh-my-zsh"
+export ZSH="/home/repa/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -110,5 +110,9 @@ alias pyenv="PIPENV_VENV_IN_PROJECT=true pipenv install"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source /etc/zsh_command_not_found
-export DENO_INSTALL="/home/pablo/.deno"
+export DENO_INSTALL="/home/repa/.deno"
 export PATH="$DENO_INSTALL/bin:$PATH"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export GOBIN="$HOME/go/bin"
+export PATH="$PATH:/usr/local/go/bin:$GOBIN"
