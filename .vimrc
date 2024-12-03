@@ -52,8 +52,9 @@ let g:materialmonokai_italic=1 " For comments
 let g:materialmonokai_subtle_spell=1
 let g:materialmonokai_custom_lint_indicators=0
 " Coc server extensions
-let g:coc_global_extensions = [ 'coc-tsserver', 'coc-deno' , 'coc-json' , 'coc-css' , 'coc-python' , 'coc-highlight' , 'coc-prettier' , 'coc-eslint', 'coc-html' , 'coc-java' , 'coc-angular' , 'coc-xml', 'coc-go', 'coc-spell-checker' ]
+let g:coc_global_extensions = [ 'coc-tsserver', 'coc-deno' , 'coc-json' , 'coc-css' , 'coc-highlight' , 'coc-prettier' , 'coc-eslint', 'coc-html' , 'coc-java' , 'coc-angular' , 'coc-xml', 'coc-go', 'coc-spell-checker' ]
 let g:airline_powerline_fonts = 1
+autocmd FileType python let b:coc_root_patterns = ['.vim', '.git', '.env', 'venv', '.venv', 'setup.cfg', 'setup.py', 'pyproject.toml', 'pyrightconfig.json']
 
 " Turn on syntax highlighting
 syntax on
